@@ -24,13 +24,13 @@ func CopyFile(src, dst string) (w int64, err error) {
 
 }
 
-func IsExists(file string) bool {
-	_, err := os.Stat(file)
+func IsExists(filename string) bool {
+	_, err := os.Stat(filename)
 	return err == nil || os.IsExist(err)
 }
 
-func IsDirExists(file string) bool {
-	fi, err := os.Stat(file)
+func IsDirExists(filename string) bool {
+	fi, err := os.Stat(filename)
 	if err != nil {
 		return os.IsExist(err)
 	} else {
@@ -38,12 +38,12 @@ func IsDirExists(file string) bool {
 	}
 }
 
-func CheckDir(file string) error {
-	ok := IsDirExists(file)
+func CheckDir(dirname string, mode os.FileMode) error {
+	ok := IsDirExists(dirname)
 	if !ok {
-		err := os.MkdirAll(file, 0777)
+		err := os.MkdirAll(dirname, mode)
 		if err != nil {
-			return errors.New(fmt.Sprintf("%s:make dir err!", file))
+			return errors.New(fmt.Sprintf("%s:make dir err!", dirname))
 		}
 	}
 	return nil
