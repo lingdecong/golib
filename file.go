@@ -1,10 +1,10 @@
 package golib
 
 import (
-	"os"
 	"errors"
 	"fmt"
 	"io"
+	"os"
 )
 
 func CopyFile(src, dst string) (w int64, err error) {
@@ -26,10 +26,7 @@ func CopyFile(src, dst string) (w int64, err error) {
 
 func IsExists(file string) bool {
 	_, err := os.Stat(file)
-	if err != nil {
-		return !os.IsExist(err)
-	}
-	return true
+	return err == nil || os.IsExist(err)
 }
 
 func IsDirExists(file string) bool {
